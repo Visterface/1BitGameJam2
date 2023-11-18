@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqewwdqm06jdt"]
+
+[ext_resource type="Script" path="res://Scripts/rocket_launcher.gd" id="1_pj0wq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v108h"]
+
+[node name="RocketLauncher" type="Node3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+script = ExtResource("1_pj0wq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.716943, -3.13386e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_v108h")
+skeleton = NodePath("")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(-0.00108211, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00108211, 0, 0, -1)

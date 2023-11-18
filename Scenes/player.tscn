@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://dei8dmqteelsp"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterBody3D.gd" id="1_mbsev"]
+[ext_resource type="PackedScene" uid="uid://10emuuq3bh65" path="res://Scenes/mashine_gun.tscn" id="2_3ev28"]
+[ext_resource type="PackedScene" uid="uid://dqewwdqm06jdt" path="res://Scenes/rocket_launcher.tscn" id="2_tu7be"]
+[ext_resource type="PackedScene" uid="uid://bi3tykabhhshy" path="res://Scenes/pistol.tscn" id="4_4f0ub"]
+[ext_resource type="PackedScene" uid="uid://c643k16x6dbjm" path="res://Scenes/sword.tscn" id="5_w8iho"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6h2sx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5c1pi"]
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1, 0)
+collision_layer = 2
+script = ExtResource("1_mbsev")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6h2sx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_5c1pi")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RocketLauncher" parent="Camera3D" instance=ExtResource("2_tu7be")]
+transform = Transform3D(-0.149966, 0, 0, 0, 0.156506, 0, 0, 0, 0.156148, 0.128801, 0, -0.104576)
+
+[node name="MashineGun" parent="Camera3D" instance=ExtResource("2_3ev28")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.138668, 0, -0.337256)
+visible = false
+
+[node name="pistol" parent="Camera3D" instance=ExtResource("4_4f0ub")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0689603, 0, -0.0983192)
+visible = false
+
+[node name="Sword" parent="Camera3D" instance=ExtResource("5_w8iho")]
+transform = Transform3D(0.1, 0, 0, 0, 0.0707107, 0.0707107, 0, -0.0707107, 0.0707107, 0.0661088, -0.0478004, 0)
+visible = false

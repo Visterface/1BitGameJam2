@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx08yxo2ilgnr"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_aqh1g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hi0j5"]
+radius = 0.493142
+height = 1.13568
+
+[sub_resource type="SphereMesh" id="SphereMesh_yqpa0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_asww7"]
+
+[node name="Bullet" type="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+script = ExtResource("1_aqh1g")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.474322, 0, 0, 0, 0.412035, 0, 0, 0, 1.12343, -0.00844637, -0.0476497, -0.019385)
+shape = SubResource("CapsuleShape3D_hi0j5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.158337, 0, 0, 0, 0.241645, 0, 0, 0, 1.00991, 0, 0, 0)
+mesh = SubResource("SphereMesh_yqpa0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.321241, 0, 0, 0, 0.175601, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_asww7")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

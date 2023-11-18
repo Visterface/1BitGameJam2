@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://crn8kwqeiulrp"]
+
+[ext_resource type="Script" path="res://Scripts/Skelleton.gd" id="1_qi6mn"]
+[ext_resource type="Texture2D" uid="uid://4yxci51invoc" path="res://newAssets/SkelletonNew2.png" id="2_yewoi"]
+[ext_resource type="Texture2D" uid="uid://b5g5mhbgll7md" path="res://newAssets/SkelletonNew3.png" id="3_u1lm5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdkge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yewoi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u1lm5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_86eod"]
+radius = 0.134227
+height = 0.340339
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m8gfr"]
+
+[node name="Skelleton" type="CharacterBody3D" groups=["enemy"]]
+collision_mask = 2
+script = ExtResource("1_qi6mn")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_qdkge")
+frame_progress = 0.829554
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_86eod")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.32, 0, 0, 0, 0.192, 0, 0, 0, 0.3, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_m8gfr")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

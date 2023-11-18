@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://c643k16x6dbjm"]
+
+[ext_resource type="Script" path="res://Scripts/Sword.gd" id="1_rnwd6"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_eyc8f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u6el8"]
+size = Vector3(1, 1.04005, 1)
+
+[sub_resource type="Animation" id="Animation_sbd34"]
+resource_name = "new_animation"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2324, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0), Vector3(-1.5708, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_w1m2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.785398, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w0j4u"]
+_data = {
+"RESET": SubResource("Animation_w1m2y"),
+"new_animation": SubResource("Animation_sbd34")
+}
+
+[node name="Sword" type="Node3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.0707107, 0.0707107, 0, -0.0707107, 0.0707107, 0, 0.00208735, 0)
+script = ExtResource("1_rnwd6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.11722, 0, 0, 0, -4.37114e-08, 4.24161, 0, -1, -1.85407e-07, 0, 2.08188, 0)
+mesh = SubResource("PrismMesh_eyc8f")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1179, -1.30385e-08)
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 6.38541, 0, 0, 0, 1, 0, 1.17705, 0)
+shape = SubResource("BoxShape3D_u6el8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w0j4u")
+}
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

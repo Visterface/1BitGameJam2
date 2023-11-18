@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdmni15omjtb1"]
+
+[ext_resource type="Script" path="res://Scripts/rocket.gd" id="1_fvv2a"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mpttd"]
+height = 1.10499
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_uwf4u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uj0dt"]
+albedo_texture = SubResource("CanvasTexture_uwf4u")
+
+[sub_resource type="SphereMesh" id="SphereMesh_psh3c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u6dy1"]
+radius = 0.083319
+
+[node name="Rocket" type="StaticBody3D" groups=["rocket"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+script = ExtResource("1_fvv2a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_mpttd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_uj0dt")
+mesh = SubResource("SphereMesh_psh3c")
+skeleton = NodePath("")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_u6dy1")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

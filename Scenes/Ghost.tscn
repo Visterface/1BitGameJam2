@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxgkrib6a5uty"]
+
+[ext_resource type="Script" path="res://Scripts/Ghost.gd" id="1_2i1c5"]
+[ext_resource type="Texture2D" uid="uid://dlklgvmaa8v45" path="res://newAssets/GhostNew1.png" id="2_2eubj"]
+[ext_resource type="Texture2D" uid="uid://cdru68nxmtj4w" path="res://newAssets/GhostNew2.png" id="3_wnwva"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_erqdp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2eubj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wnwva")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hdcpp"]
+radius = 0.140033
+height = 0.414865
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bsp65"]
+radius = 0.219958
+
+[node name="Ghost" type="CharacterBody3D" groups=["enemy"]]
+collision_mask = 2
+script = ExtResource("1_2i1c5")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69549e-06, 0.000426054, 0.000101388)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_erqdp")
+frame_progress = 0.276146
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_hdcpp")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.905832, 0, 0, 0, 0.887089, 0, 0, 0, 0.577009, 0, 0, 0)
+shape = SubResource("SphereShape3D_bsp65")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
